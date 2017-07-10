@@ -574,6 +574,66 @@ public class ProductExample {
             addCriterion("url_p4p not between", value1, value2, "urlP4p");
             return (Criteria) this;
         }
+
+        public Criteria andCateIdIsNull() {
+            addCriterion("cate_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCateIdIsNotNull() {
+            addCriterion("cate_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCateIdEqualTo(Long value) {
+            addCriterion("cate_id =", value, "cateId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCateIdNotEqualTo(Long value) {
+            addCriterion("cate_id <>", value, "cateId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCateIdGreaterThan(Long value) {
+            addCriterion("cate_id >", value, "cateId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCateIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("cate_id >=", value, "cateId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCateIdLessThan(Long value) {
+            addCriterion("cate_id <", value, "cateId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCateIdLessThanOrEqualTo(Long value) {
+            addCriterion("cate_id <=", value, "cateId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCateIdIn(List<Long> values) {
+            addCriterion("cate_id in", values, "cateId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCateIdNotIn(List<Long> values) {
+            addCriterion("cate_id not in", values, "cateId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCateIdBetween(Long value1, Long value2) {
+            addCriterion("cate_id between", value1, value2, "cateId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCateIdNotBetween(Long value1, Long value2) {
+            addCriterion("cate_id not between", value1, value2, "cateId");
+            return (Criteria) this;
+        }
     }
 
     /**

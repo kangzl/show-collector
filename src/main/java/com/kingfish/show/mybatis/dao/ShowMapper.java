@@ -50,11 +50,11 @@ public interface ShowMapper {
         "insert into show (id, gmt_create, ",
         "gmt_modify, truth, ",
         "praise, product_id, ",
-        "source, pics)",
+        "source, pics, show_time)",
         "values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, ",
         "#{gmtModify,jdbcType=TIMESTAMP}, #{truth,jdbcType=DOUBLE}, ",
         "#{praise,jdbcType=INTEGER}, #{productId,jdbcType=BIGINT}, ",
-        "#{source,jdbcType=TINYINT}, #{pics,jdbcType=VARCHAR})"
+        "#{source,jdbcType=TINYINT}, #{pics,jdbcType=VARCHAR}, #{showTime,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=true, resultType=Long.class)
     int insert(Show record);
@@ -83,7 +83,7 @@ public interface ShowMapper {
      */
     @Select({
         "select",
-        "id, gmt_create, gmt_modify, truth, praise, product_id, source, pics",
+        "id, gmt_create, gmt_modify, truth, praise, product_id, source, pics, show_time",
         "from show",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -128,7 +128,8 @@ public interface ShowMapper {
           "praise = #{praise,jdbcType=INTEGER},",
           "product_id = #{productId,jdbcType=BIGINT},",
           "source = #{source,jdbcType=TINYINT},",
-          "pics = #{pics,jdbcType=VARCHAR}",
+          "pics = #{pics,jdbcType=VARCHAR},",
+          "show_time = #{showTime,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(Show record);

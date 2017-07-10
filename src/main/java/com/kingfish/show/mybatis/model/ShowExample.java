@@ -684,6 +684,66 @@ public class ShowExample {
             addCriterion("pics not between", value1, value2, "pics");
             return (Criteria) this;
         }
+
+        public Criteria andShowTimeIsNull() {
+            addCriterion("show_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowTimeIsNotNull() {
+            addCriterion("show_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowTimeEqualTo(Date value) {
+            addCriterion("show_time =", value, "showTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowTimeNotEqualTo(Date value) {
+            addCriterion("show_time <>", value, "showTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowTimeGreaterThan(Date value) {
+            addCriterion("show_time >", value, "showTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("show_time >=", value, "showTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowTimeLessThan(Date value) {
+            addCriterion("show_time <", value, "showTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowTimeLessThanOrEqualTo(Date value) {
+            addCriterion("show_time <=", value, "showTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowTimeIn(List<Date> values) {
+            addCriterion("show_time in", values, "showTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowTimeNotIn(List<Date> values) {
+            addCriterion("show_time not in", values, "showTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowTimeBetween(Date value1, Date value2) {
+            addCriterion("show_time between", value1, value2, "showTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowTimeNotBetween(Date value1, Date value2) {
+            addCriterion("show_time not between", value1, value2, "showTime");
+            return (Criteria) this;
+        }
     }
 
     /**

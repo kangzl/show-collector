@@ -32,10 +32,10 @@ public interface ProductMapper {
     @Insert({
         "insert into product (product_id, gmt_create, ",
         "gmt_modify, url, ",
-        "is_p4p, url_p4p)",
+        "is_p4p, url_p4p, cate_id)",
         "values (#{productId,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, ",
         "#{gmtModify,jdbcType=TIMESTAMP}, #{url,jdbcType=VARCHAR}, ",
-        "#{isP4p,jdbcType=BIT}, #{urlP4p,jdbcType=VARCHAR})"
+        "#{isP4p,jdbcType=BIT}, #{urlP4p,jdbcType=VARCHAR}, #{cateId,jdbcType=BIGINT})"
     })
     int insert(Product record);
 
