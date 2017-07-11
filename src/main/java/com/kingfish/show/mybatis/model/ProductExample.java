@@ -634,6 +634,196 @@ public class ProductExample {
             addCriterion("cate_id not between", value1, value2, "cateId");
             return (Criteria) this;
         }
+
+        public Criteria andViewSalesIsNull() {
+            addCriterion("view_sales is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewSalesIsNotNull() {
+            addCriterion("view_sales is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewSalesEqualTo(String value) {
+            addCriterion("view_sales =", value, "viewSales");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewSalesNotEqualTo(String value) {
+            addCriterion("view_sales <>", value, "viewSales");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewSalesGreaterThan(String value) {
+            addCriterion("view_sales >", value, "viewSales");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewSalesGreaterThanOrEqualTo(String value) {
+            addCriterion("view_sales >=", value, "viewSales");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewSalesLessThan(String value) {
+            addCriterion("view_sales <", value, "viewSales");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewSalesLessThanOrEqualTo(String value) {
+            addCriterion("view_sales <=", value, "viewSales");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewSalesLike(String value) {
+            addCriterion("view_sales like", value, "viewSales");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewSalesNotLike(String value) {
+            addCriterion("view_sales not like", value, "viewSales");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewSalesIn(List<String> values) {
+            addCriterion("view_sales in", values, "viewSales");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewSalesNotIn(List<String> values) {
+            addCriterion("view_sales not in", values, "viewSales");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewSalesBetween(String value1, String value2) {
+            addCriterion("view_sales between", value1, value2, "viewSales");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewSalesNotBetween(String value1, String value2) {
+            addCriterion("view_sales not between", value1, value2, "viewSales");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleIdIsNull() {
+            addCriterion("sale_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleIdIsNotNull() {
+            addCriterion("sale_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleIdEqualTo(Long value) {
+            addCriterion("sale_id =", value, "saleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleIdNotEqualTo(Long value) {
+            addCriterion("sale_id <>", value, "saleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleIdGreaterThan(Long value) {
+            addCriterion("sale_id >", value, "saleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("sale_id >=", value, "saleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleIdLessThan(Long value) {
+            addCriterion("sale_id <", value, "saleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleIdLessThanOrEqualTo(Long value) {
+            addCriterion("sale_id <=", value, "saleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleIdIn(List<Long> values) {
+            addCriterion("sale_id in", values, "saleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleIdNotIn(List<Long> values) {
+            addCriterion("sale_id not in", values, "saleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleIdBetween(Long value1, Long value2) {
+            addCriterion("sale_id between", value1, value2, "saleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaleIdNotBetween(Long value1, Long value2) {
+            addCriterion("sale_id not between", value1, value2, "saleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andL1CategoryIsNull() {
+            addCriterion("l1_category is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andL1CategoryIsNotNull() {
+            addCriterion("l1_category is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andL1CategoryEqualTo(Long value) {
+            addCriterion("l1_category =", value, "l1Category");
+            return (Criteria) this;
+        }
+
+        public Criteria andL1CategoryNotEqualTo(Long value) {
+            addCriterion("l1_category <>", value, "l1Category");
+            return (Criteria) this;
+        }
+
+        public Criteria andL1CategoryGreaterThan(Long value) {
+            addCriterion("l1_category >", value, "l1Category");
+            return (Criteria) this;
+        }
+
+        public Criteria andL1CategoryGreaterThanOrEqualTo(Long value) {
+            addCriterion("l1_category >=", value, "l1Category");
+            return (Criteria) this;
+        }
+
+        public Criteria andL1CategoryLessThan(Long value) {
+            addCriterion("l1_category <", value, "l1Category");
+            return (Criteria) this;
+        }
+
+        public Criteria andL1CategoryLessThanOrEqualTo(Long value) {
+            addCriterion("l1_category <=", value, "l1Category");
+            return (Criteria) this;
+        }
+
+        public Criteria andL1CategoryIn(List<Long> values) {
+            addCriterion("l1_category in", values, "l1Category");
+            return (Criteria) this;
+        }
+
+        public Criteria andL1CategoryNotIn(List<Long> values) {
+            addCriterion("l1_category not in", values, "l1Category");
+            return (Criteria) this;
+        }
+
+        public Criteria andL1CategoryBetween(Long value1, Long value2) {
+            addCriterion("l1_category between", value1, value2, "l1Category");
+            return (Criteria) this;
+        }
+
+        public Criteria andL1CategoryNotBetween(Long value1, Long value2) {
+            addCriterion("l1_category not between", value1, value2, "l1Category");
+            return (Criteria) this;
+        }
     }
 
     /**

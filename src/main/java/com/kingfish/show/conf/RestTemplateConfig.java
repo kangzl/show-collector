@@ -1,6 +1,6 @@
 package com.kingfish.show.conf;
 
-import com.kingfish.show.converter.Feed2JsonMessageConverter;
+import com.kingfish.show.converter.TBFeed2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestFactory;
@@ -15,7 +15,7 @@ public class RestTemplateConfig {
     @Bean
     public RestTemplate restTemplate(ClientHttpRequestFactory factory) {
         RestTemplate restTemplate = new RestTemplate(factory);
-        restTemplate.getMessageConverters().add(new Feed2JsonMessageConverter());
+        restTemplate.getMessageConverters().add(new TBFeed2JsonMessageConverter());
         return restTemplate;
     }
 

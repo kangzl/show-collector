@@ -152,6 +152,8 @@
         </table>
         <table tableName="msg" schema="show">
         </table>
+        <table tableName="spider_track" schema="show">
+        </table>
         <table tableName="%">
             <generatedKey column="id" sqlStatement="Mysql"/>
         </table>

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by kingfish on 2017/7/11.
  */
-public class Feed {
+public class TBFeed {
     /**
      * total : 460
      * watershed : 100
