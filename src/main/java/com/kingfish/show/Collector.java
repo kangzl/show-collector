@@ -47,7 +47,7 @@ public class Collector {
     @Autowired
     private ShowsMapper showsMapper;
 
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(fixedDelay = 1000 * 60 * 60 * 24)
     public void reportCurrentTime() {
 
         List<SpiderTrack> spiderTracks = spiderTrackMapper.selectByExample(new SpiderTrackExample());
