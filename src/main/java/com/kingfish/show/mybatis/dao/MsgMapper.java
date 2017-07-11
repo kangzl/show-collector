@@ -4,12 +4,18 @@ import com.kingfish.show.mybatis.model.Msg;
 import com.kingfish.show.mybatis.model.MsgExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.UpdateProvider;
+import org.apache.ibatis.type.JdbcType;
 
 public interface MsgMapper {
     /**
@@ -18,6 +24,7 @@ public interface MsgMapper {
      *
      * @mbg.generated
      */
+    @SelectProvider(type=MsgSqlProvider.class, method="countByExample")
     long countByExample(MsgExample example);
 
     /**
@@ -26,6 +33,7 @@ public interface MsgMapper {
      *
      * @mbg.generated
      */
+    @DeleteProvider(type=MsgSqlProvider.class, method="deleteByExample")
     int deleteByExample(MsgExample example);
 
     /**
@@ -63,6 +71,8 @@ public interface MsgMapper {
      *
      * @mbg.generated
      */
+    @InsertProvider(type=MsgSqlProvider.class, method="insertSelective")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=true, resultType=Long.class)
     int insertSelective(Msg record);
 
     /**
@@ -71,6 +81,16 @@ public interface MsgMapper {
      *
      * @mbg.generated
      */
+    @SelectProvider(type=MsgSqlProvider.class, method="selectByExample")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="gmt_create", property="gmtCreate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="gmt_modify", property="gmtModify", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="show_id", property="showId", jdbcType=JdbcType.BIGINT),
+        @Result(column="user_id", property="userId", jdbcType=JdbcType.BIGINT),
+        @Result(column="user_ip", property="userIp", jdbcType=JdbcType.VARCHAR),
+        @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR)
+    })
     List<Msg> selectByExample(MsgExample example);
 
     /**
@@ -85,7 +105,15 @@ public interface MsgMapper {
         "from msg",
         "where id = #{id,jdbcType=BIGINT}"
     })
-    @ResultMap("com.kingfish.show.mybatis.dao.MsgMapper.BaseResultMap")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="gmt_create", property="gmtCreate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="gmt_modify", property="gmtModify", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="show_id", property="showId", jdbcType=JdbcType.BIGINT),
+        @Result(column="user_id", property="userId", jdbcType=JdbcType.BIGINT),
+        @Result(column="user_ip", property="userIp", jdbcType=JdbcType.VARCHAR),
+        @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR)
+    })
     Msg selectByPrimaryKey(Long id);
 
     /**
@@ -94,6 +122,7 @@ public interface MsgMapper {
      *
      * @mbg.generated
      */
+    @UpdateProvider(type=MsgSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") Msg record, @Param("example") MsgExample example);
 
     /**
@@ -102,6 +131,7 @@ public interface MsgMapper {
      *
      * @mbg.generated
      */
+    @UpdateProvider(type=MsgSqlProvider.class, method="updateByExample")
     int updateByExample(@Param("record") Msg record, @Param("example") MsgExample example);
 
     /**
@@ -110,6 +140,7 @@ public interface MsgMapper {
      *
      * @mbg.generated
      */
+    @UpdateProvider(type=MsgSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(Msg record);
 
     /**

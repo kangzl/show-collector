@@ -3,8 +3,15 @@ package com.kingfish.show.mybatis.dao;
 import com.kingfish.show.mybatis.model.Product;
 import com.kingfish.show.mybatis.model.ProductExample;
 import java.util.List;
+import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.UpdateProvider;
+import org.apache.ibatis.type.JdbcType;
 
 public interface ProductMapper {
     /**
@@ -13,6 +20,7 @@ public interface ProductMapper {
      *
      * @mbg.generated
      */
+    @SelectProvider(type=ProductSqlProvider.class, method="countByExample")
     long countByExample(ProductExample example);
 
     /**
@@ -21,6 +29,7 @@ public interface ProductMapper {
      *
      * @mbg.generated
      */
+    @DeleteProvider(type=ProductSqlProvider.class, method="deleteByExample")
     int deleteByExample(ProductExample example);
 
     /**
@@ -49,6 +58,7 @@ public interface ProductMapper {
      *
      * @mbg.generated
      */
+    @InsertProvider(type=ProductSqlProvider.class, method="insertSelective")
     int insertSelective(Product record);
 
     /**
@@ -57,6 +67,19 @@ public interface ProductMapper {
      *
      * @mbg.generated
      */
+    @SelectProvider(type=ProductSqlProvider.class, method="selectByExample")
+    @Results({
+        @Result(column="product_id", property="productId", jdbcType=JdbcType.BIGINT),
+        @Result(column="gmt_create", property="gmtCreate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="gmt_modify", property="gmtModify", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="url", property="url", jdbcType=JdbcType.VARCHAR),
+        @Result(column="is_p4p", property="isP4p", jdbcType=JdbcType.BIT),
+        @Result(column="url_p4p", property="urlP4p", jdbcType=JdbcType.VARCHAR),
+        @Result(column="cate_id", property="cateId", jdbcType=JdbcType.BIGINT),
+        @Result(column="view_sales", property="viewSales", jdbcType=JdbcType.VARCHAR),
+        @Result(column="sale_id", property="saleId", jdbcType=JdbcType.BIGINT),
+        @Result(column="l1_category", property="l1Category", jdbcType=JdbcType.BIGINT)
+    })
     List<Product> selectByExample(ProductExample example);
 
     /**
@@ -65,6 +88,7 @@ public interface ProductMapper {
      *
      * @mbg.generated
      */
+    @UpdateProvider(type=ProductSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") Product record, @Param("example") ProductExample example);
 
     /**
@@ -73,5 +97,6 @@ public interface ProductMapper {
      *
      * @mbg.generated
      */
+    @UpdateProvider(type=ProductSqlProvider.class, method="updateByExample")
     int updateByExample(@Param("record") Product record, @Param("example") ProductExample example);
 }

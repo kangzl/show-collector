@@ -2,14 +2,10 @@ package com.kingfish.show.mybatis.dao;
 
 import com.kingfish.show.mybatis.model.Show;
 import com.kingfish.show.mybatis.model.ShowExample;
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.JdbcType;
+
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectKey;
-import org.apache.ibatis.annotations.Update;
 
 public interface ShowMapper {
     /**
@@ -18,6 +14,7 @@ public interface ShowMapper {
      *
      * @mbg.generated
      */
+    @SelectProvider(type=ShowSqlProvider.class, method="countByExample")
     long countByExample(ShowExample example);
 
     /**
@@ -26,6 +23,7 @@ public interface ShowMapper {
      *
      * @mbg.generated
      */
+    @DeleteProvider(type=ShowSqlProvider.class, method="deleteByExample")
     int deleteByExample(ShowExample example);
 
     /**
@@ -65,6 +63,8 @@ public interface ShowMapper {
      *
      * @mbg.generated
      */
+    @InsertProvider(type=ShowSqlProvider.class, method="insertSelective")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=true, resultType=Long.class)
     int insertSelective(Show record);
 
     /**
@@ -73,6 +73,18 @@ public interface ShowMapper {
      *
      * @mbg.generated
      */
+    @SelectProvider(type=ShowSqlProvider.class, method="selectByExample")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="gmt_create", property="gmtCreate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="gmt_modify", property="gmtModify", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="truth", property="truth", jdbcType=JdbcType.DOUBLE),
+        @Result(column="praise", property="praise", jdbcType=JdbcType.INTEGER),
+        @Result(column="product_id", property="productId", jdbcType=JdbcType.BIGINT),
+        @Result(column="source", property="source", jdbcType=JdbcType.TINYINT),
+        @Result(column="pics", property="pics", jdbcType=JdbcType.VARCHAR),
+        @Result(column="show_time", property="showTime", jdbcType=JdbcType.TIMESTAMP)
+    })
     List<Show> selectByExample(ShowExample example);
 
     /**
@@ -87,7 +99,17 @@ public interface ShowMapper {
         "from show",
         "where id = #{id,jdbcType=BIGINT}"
     })
-    @ResultMap("com.kingfish.show.mybatis.dao.ShowMapper.BaseResultMap")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="gmt_create", property="gmtCreate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="gmt_modify", property="gmtModify", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="truth", property="truth", jdbcType=JdbcType.DOUBLE),
+        @Result(column="praise", property="praise", jdbcType=JdbcType.INTEGER),
+        @Result(column="product_id", property="productId", jdbcType=JdbcType.BIGINT),
+        @Result(column="source", property="source", jdbcType=JdbcType.TINYINT),
+        @Result(column="pics", property="pics", jdbcType=JdbcType.VARCHAR),
+        @Result(column="show_time", property="showTime", jdbcType=JdbcType.TIMESTAMP)
+    })
     Show selectByPrimaryKey(Long id);
 
     /**
@@ -96,6 +118,7 @@ public interface ShowMapper {
      *
      * @mbg.generated
      */
+    @UpdateProvider(type=ShowSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") Show record, @Param("example") ShowExample example);
 
     /**
@@ -104,6 +127,7 @@ public interface ShowMapper {
      *
      * @mbg.generated
      */
+    @UpdateProvider(type=ShowSqlProvider.class, method="updateByExample")
     int updateByExample(@Param("record") Show record, @Param("example") ShowExample example);
 
     /**
@@ -112,6 +136,7 @@ public interface ShowMapper {
      *
      * @mbg.generated
      */
+    @UpdateProvider(type=ShowSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(Show record);
 
     /**

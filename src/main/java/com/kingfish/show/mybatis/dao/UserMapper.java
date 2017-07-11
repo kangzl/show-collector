@@ -2,14 +2,10 @@ package com.kingfish.show.mybatis.dao;
 
 import com.kingfish.show.mybatis.model.User;
 import com.kingfish.show.mybatis.model.UserExample;
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.JdbcType;
+
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectKey;
-import org.apache.ibatis.annotations.Update;
 
 public interface UserMapper {
     /**
@@ -18,6 +14,7 @@ public interface UserMapper {
      *
      * @mbg.generated
      */
+    @SelectProvider(type=UserSqlProvider.class, method="countByExample")
     long countByExample(UserExample example);
 
     /**
@@ -26,6 +23,7 @@ public interface UserMapper {
      *
      * @mbg.generated
      */
+    @DeleteProvider(type=UserSqlProvider.class, method="deleteByExample")
     int deleteByExample(UserExample example);
 
     /**
@@ -67,6 +65,8 @@ public interface UserMapper {
      *
      * @mbg.generated
      */
+    @InsertProvider(type=UserSqlProvider.class, method="insertSelective")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=true, resultType=Long.class)
     int insertSelective(User record);
 
     /**
@@ -75,6 +75,19 @@ public interface UserMapper {
      *
      * @mbg.generated
      */
+    @SelectProvider(type=UserSqlProvider.class, method="selectByExample")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="gmt_create", property="gmtCreate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="gmt_modify", property="gmtModify", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
+        @Result(column="password", property="password", jdbcType=JdbcType.VARCHAR),
+        @Result(column="sex", property="sex", jdbcType=JdbcType.TINYINT),
+        @Result(column="head_portrait_url", property="headPortraitUrl", jdbcType=JdbcType.VARCHAR),
+        @Result(column="signature", property="signature", jdbcType=JdbcType.VARCHAR),
+        @Result(column="mobile_phone_number", property="mobilePhoneNumber", jdbcType=JdbcType.VARCHAR),
+        @Result(column="email", property="email", jdbcType=JdbcType.VARCHAR)
+    })
     List<User> selectByExample(UserExample example);
 
     /**
@@ -90,7 +103,18 @@ public interface UserMapper {
         "from user",
         "where id = #{id,jdbcType=BIGINT}"
     })
-    @ResultMap("com.kingfish.show.mybatis.dao.UserMapper.BaseResultMap")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="gmt_create", property="gmtCreate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="gmt_modify", property="gmtModify", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
+        @Result(column="password", property="password", jdbcType=JdbcType.VARCHAR),
+        @Result(column="sex", property="sex", jdbcType=JdbcType.TINYINT),
+        @Result(column="head_portrait_url", property="headPortraitUrl", jdbcType=JdbcType.VARCHAR),
+        @Result(column="signature", property="signature", jdbcType=JdbcType.VARCHAR),
+        @Result(column="mobile_phone_number", property="mobilePhoneNumber", jdbcType=JdbcType.VARCHAR),
+        @Result(column="email", property="email", jdbcType=JdbcType.VARCHAR)
+    })
     User selectByPrimaryKey(Long id);
 
     /**
@@ -99,6 +123,7 @@ public interface UserMapper {
      *
      * @mbg.generated
      */
+    @UpdateProvider(type=UserSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
 
     /**
@@ -107,6 +132,7 @@ public interface UserMapper {
      *
      * @mbg.generated
      */
+    @UpdateProvider(type=UserSqlProvider.class, method="updateByExample")
     int updateByExample(@Param("record") User record, @Param("example") UserExample example);
 
     /**
@@ -115,6 +141,7 @@ public interface UserMapper {
      *
      * @mbg.generated
      */
+    @UpdateProvider(type=UserSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(User record);
 
     /**

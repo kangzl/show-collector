@@ -2,14 +2,10 @@ package com.kingfish.show.mybatis.dao;
 
 import com.kingfish.show.mybatis.model.Feature;
 import com.kingfish.show.mybatis.model.FeatureExample;
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.JdbcType;
+
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectKey;
-import org.apache.ibatis.annotations.Update;
 
 public interface FeatureMapper {
     /**
@@ -18,6 +14,7 @@ public interface FeatureMapper {
      *
      * @mbg.generated
      */
+    @SelectProvider(type=FeatureSqlProvider.class, method="countByExample")
     long countByExample(FeatureExample example);
 
     /**
@@ -26,6 +23,7 @@ public interface FeatureMapper {
      *
      * @mbg.generated
      */
+    @DeleteProvider(type=FeatureSqlProvider.class, method="deleteByExample")
     int deleteByExample(FeatureExample example);
 
     /**
@@ -59,6 +57,8 @@ public interface FeatureMapper {
      *
      * @mbg.generated
      */
+    @InsertProvider(type=FeatureSqlProvider.class, method="insertSelective")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=true, resultType=Integer.class)
     int insertSelective(Feature record);
 
     /**
@@ -67,6 +67,11 @@ public interface FeatureMapper {
      *
      * @mbg.generated
      */
+    @SelectProvider(type=FeatureSqlProvider.class, method="selectByExample")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR)
+    })
     List<Feature> selectByExample(FeatureExample example);
 
     /**
@@ -81,7 +86,10 @@ public interface FeatureMapper {
         "from feature",
         "where id = #{id,jdbcType=INTEGER}"
     })
-    @ResultMap("com.kingfish.show.mybatis.dao.FeatureMapper.BaseResultMap")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR)
+    })
     Feature selectByPrimaryKey(Integer id);
 
     /**
@@ -90,6 +98,7 @@ public interface FeatureMapper {
      *
      * @mbg.generated
      */
+    @UpdateProvider(type=FeatureSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") Feature record, @Param("example") FeatureExample example);
 
     /**
@@ -98,6 +107,7 @@ public interface FeatureMapper {
      *
      * @mbg.generated
      */
+    @UpdateProvider(type=FeatureSqlProvider.class, method="updateByExample")
     int updateByExample(@Param("record") Feature record, @Param("example") FeatureExample example);
 
     /**
@@ -106,6 +116,7 @@ public interface FeatureMapper {
      *
      * @mbg.generated
      */
+    @UpdateProvider(type=FeatureSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(Feature record);
 
     /**
