@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @EnableScheduling
 @RestController
-public class DataCollecterApplication {
+public class ShowCollecterApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DataCollecterApplication.class, args);
+        SpringApplication.run(ShowCollecterApplication.class, args);
     }
 }
