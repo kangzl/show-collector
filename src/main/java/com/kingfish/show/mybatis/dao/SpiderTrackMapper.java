@@ -2,10 +2,20 @@ package com.kingfish.show.mybatis.dao;
 
 import com.kingfish.show.mybatis.model.SpiderTrack;
 import com.kingfish.show.mybatis.model.SpiderTrackExample;
-import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.type.JdbcType;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.DeleteProvider;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.UpdateProvider;
+import org.apache.ibatis.type.JdbcType;
 
 public interface SpiderTrackMapper {
     /**
@@ -45,16 +55,14 @@ public interface SpiderTrackMapper {
      * @mbg.generated
      */
     @Insert({
-        "insert into spider_track (id, gmt_create, ",
-        "gmt_modify, category_id, ",
-        "keyword, last_time, ",
-        "num)",
-        "values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, ",
-        "#{gmtModify,jdbcType=TIMESTAMP}, #{categoryId,jdbcType=BIGINT}, ",
-        "#{keyword,jdbcType=VARCHAR}, #{lastTime,jdbcType=TIMESTAMP}, ",
-        "#{num,jdbcType=BIGINT})"
+        "insert into spider_track (gmt_create, gmt_modify, ",
+        "category_id, keyword, ",
+        "last_time, num)",
+        "values (#{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}, ",
+        "#{categoryId,jdbcType=BIGINT}, #{keyword,jdbcType=VARCHAR}, ",
+        "#{lastTime,jdbcType=TIMESTAMP}, #{num,jdbcType=BIGINT})"
     })
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=true, resultType=Long.class)
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(SpiderTrack record);
 
     /**
@@ -64,7 +72,7 @@ public interface SpiderTrackMapper {
      * @mbg.generated
      */
     @InsertProvider(type=SpiderTrackSqlProvider.class, method="insertSelective")
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=true, resultType=Long.class)
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insertSelective(SpiderTrack record);
 
     /**

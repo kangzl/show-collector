@@ -1,13 +1,12 @@
 package com.kingfish.show.mybatis.dao;
 
 import com.kingfish.show.mybatis.model.Feature;
-import com.kingfish.show.mybatis.model.FeatureExample;
 import com.kingfish.show.mybatis.model.FeatureExample.Criteria;
 import com.kingfish.show.mybatis.model.FeatureExample.Criterion;
-import org.apache.ibatis.jdbc.SQL;
-
+import com.kingfish.show.mybatis.model.FeatureExample;
 import java.util.List;
 import java.util.Map;
+import org.apache.ibatis.jdbc.SQL;
 
 public class FeatureSqlProvider {
 
@@ -46,8 +45,6 @@ public class FeatureSqlProvider {
     public String insertSelective(Feature record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("feature");
-        
-        sql.VALUES("id", "#{id,jdbcType=INTEGER}");
         
         if (record.getContent() != null) {
             sql.VALUES("content", "#{content,jdbcType=VARCHAR}");

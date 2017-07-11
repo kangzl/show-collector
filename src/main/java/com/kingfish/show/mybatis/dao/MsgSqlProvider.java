@@ -46,8 +46,6 @@ public class MsgSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("msg");
         
-        sql.VALUES("id", "#{id,jdbcType=BIGINT}");
-        
         if (record.getGmtCreate() != null) {
             sql.VALUES("gmt_create", "#{gmtCreate,jdbcType=TIMESTAMP}");
         }
@@ -72,6 +70,14 @@ public class MsgSqlProvider {
             sql.VALUES("content", "#{content,jdbcType=VARCHAR}");
         }
         
+        if (record.getProductId() != null) {
+            sql.VALUES("product_id", "#{productId,jdbcType=BIGINT}");
+        }
+        
+        if (record.getProductKeyId() != null) {
+            sql.VALUES("product_key_id", "#{productKeyId,jdbcType=BIGINT}");
+        }
+        
         return sql.toString();
     }
 
@@ -94,6 +100,8 @@ public class MsgSqlProvider {
         sql.SELECT("user_id");
         sql.SELECT("user_ip");
         sql.SELECT("content");
+        sql.SELECT("product_id");
+        sql.SELECT("product_key_id");
         sql.FROM("msg");
         applyWhere(sql, example, false);
         
@@ -145,6 +153,14 @@ public class MsgSqlProvider {
             sql.SET("content = #{record.content,jdbcType=VARCHAR}");
         }
         
+        if (record.getProductId() != null) {
+            sql.SET("product_id = #{record.productId,jdbcType=BIGINT}");
+        }
+        
+        if (record.getProductKeyId() != null) {
+            sql.SET("product_key_id = #{record.productKeyId,jdbcType=BIGINT}");
+        }
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -166,6 +182,8 @@ public class MsgSqlProvider {
         sql.SET("user_id = #{record.userId,jdbcType=BIGINT}");
         sql.SET("user_ip = #{record.userIp,jdbcType=VARCHAR}");
         sql.SET("content = #{record.content,jdbcType=VARCHAR}");
+        sql.SET("product_id = #{record.productId,jdbcType=BIGINT}");
+        sql.SET("product_key_id = #{record.productKeyId,jdbcType=BIGINT}");
         
         MsgExample example = (MsgExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -204,6 +222,14 @@ public class MsgSqlProvider {
         
         if (record.getContent() != null) {
             sql.SET("content = #{content,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getProductId() != null) {
+            sql.SET("product_id = #{productId,jdbcType=BIGINT}");
+        }
+        
+        if (record.getProductKeyId() != null) {
+            sql.SET("product_key_id = #{productKeyId,jdbcType=BIGINT}");
         }
         
         sql.WHERE("id = #{id,jdbcType=BIGINT}");

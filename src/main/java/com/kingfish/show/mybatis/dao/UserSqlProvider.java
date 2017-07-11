@@ -46,8 +46,6 @@ public class UserSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("user");
         
-        sql.VALUES("id", "#{id,jdbcType=BIGINT}");
-        
         if (record.getGmtCreate() != null) {
             sql.VALUES("gmt_create", "#{gmtCreate,jdbcType=TIMESTAMP}");
         }
@@ -62,6 +60,10 @@ public class UserSqlProvider {
         
         if (record.getPassword() != null) {
             sql.VALUES("password", "#{password,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getNickName() != null) {
+            sql.VALUES("nick_name", "#{nickName,jdbcType=VARCHAR}");
         }
         
         if (record.getSex() != null) {
@@ -84,6 +86,10 @@ public class UserSqlProvider {
             sql.VALUES("email", "#{email,jdbcType=VARCHAR}");
         }
         
+        if (record.getHideNickName() != null) {
+            sql.VALUES("hide_nick_name", "#{hideNickName,jdbcType=BIT}");
+        }
+        
         return sql.toString();
     }
 
@@ -104,11 +110,13 @@ public class UserSqlProvider {
         sql.SELECT("gmt_modify");
         sql.SELECT("username");
         sql.SELECT("password");
+        sql.SELECT("nick_name");
         sql.SELECT("sex");
         sql.SELECT("head_portrait_url");
         sql.SELECT("signature");
         sql.SELECT("mobile_phone_number");
         sql.SELECT("email");
+        sql.SELECT("hide_nick_name");
         sql.FROM("user");
         applyWhere(sql, example, false);
         
@@ -152,6 +160,10 @@ public class UserSqlProvider {
             sql.SET("password = #{record.password,jdbcType=VARCHAR}");
         }
         
+        if (record.getNickName() != null) {
+            sql.SET("nick_name = #{record.nickName,jdbcType=VARCHAR}");
+        }
+        
         if (record.getSex() != null) {
             sql.SET("sex = #{record.sex,jdbcType=TINYINT}");
         }
@@ -170,6 +182,10 @@ public class UserSqlProvider {
         
         if (record.getEmail() != null) {
             sql.SET("email = #{record.email,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getHideNickName() != null) {
+            sql.SET("hide_nick_name = #{record.hideNickName,jdbcType=BIT}");
         }
         
         applyWhere(sql, example, true);
@@ -191,11 +207,13 @@ public class UserSqlProvider {
         sql.SET("gmt_modify = #{record.gmtModify,jdbcType=TIMESTAMP}");
         sql.SET("username = #{record.username,jdbcType=VARCHAR}");
         sql.SET("password = #{record.password,jdbcType=VARCHAR}");
+        sql.SET("nick_name = #{record.nickName,jdbcType=VARCHAR}");
         sql.SET("sex = #{record.sex,jdbcType=TINYINT}");
         sql.SET("head_portrait_url = #{record.headPortraitUrl,jdbcType=VARCHAR}");
         sql.SET("signature = #{record.signature,jdbcType=VARCHAR}");
         sql.SET("mobile_phone_number = #{record.mobilePhoneNumber,jdbcType=VARCHAR}");
         sql.SET("email = #{record.email,jdbcType=VARCHAR}");
+        sql.SET("hide_nick_name = #{record.hideNickName,jdbcType=BIT}");
         
         UserExample example = (UserExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -228,6 +246,10 @@ public class UserSqlProvider {
             sql.SET("password = #{password,jdbcType=VARCHAR}");
         }
         
+        if (record.getNickName() != null) {
+            sql.SET("nick_name = #{nickName,jdbcType=VARCHAR}");
+        }
+        
         if (record.getSex() != null) {
             sql.SET("sex = #{sex,jdbcType=TINYINT}");
         }
@@ -246,6 +268,10 @@ public class UserSqlProvider {
         
         if (record.getEmail() != null) {
             sql.SET("email = #{email,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getHideNickName() != null) {
+            sql.SET("hide_nick_name = #{hideNickName,jdbcType=BIT}");
         }
         
         sql.WHERE("id = #{id,jdbcType=BIGINT}");

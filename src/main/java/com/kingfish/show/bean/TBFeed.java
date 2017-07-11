@@ -1,4 +1,4 @@
-package com.kingfish.show.utils;
+package com.kingfish.show.bean;
 
 import com.google.common.base.MoreObjects;
 

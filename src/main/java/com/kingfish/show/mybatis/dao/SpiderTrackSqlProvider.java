@@ -46,8 +46,6 @@ public class SpiderTrackSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("spider_track");
         
-        sql.VALUES("id", "#{id,jdbcType=BIGINT}");
-        
         if (record.getGmtCreate() != null) {
             sql.VALUES("gmt_create", "#{gmtCreate,jdbcType=TIMESTAMP}");
         }

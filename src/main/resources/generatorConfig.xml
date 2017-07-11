@@ -89,7 +89,7 @@
         </javaClientGenerator>
 
 
-        <table tableName="show" schema="show">
+        <table tableName="shows" schema="show">
 
             <!-- optional   , only for mybatis3 runtime
                  自动生成的键值（identity,或者序列值）
@@ -156,7 +156,7 @@
         <table tableName="spider_track" schema="show">
         </table>
         <table tableName="%">
-            <generatedKey column="id" sqlStatement="Mysql"/>
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
     </context>
 </generatorConfiguration>

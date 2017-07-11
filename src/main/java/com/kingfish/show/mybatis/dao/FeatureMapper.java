@@ -45,10 +45,10 @@ public interface FeatureMapper {
      * @mbg.generated
      */
     @Insert({
-        "insert into feature (id, content)",
-        "values (#{id,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR})"
+        "insert into feature (content)",
+        "values (#{content,jdbcType=VARCHAR})"
     })
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=true, resultType=Integer.class)
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(Feature record);
 
     /**
@@ -58,7 +58,7 @@ public interface FeatureMapper {
      * @mbg.generated
      */
     @InsertProvider(type=FeatureSqlProvider.class, method="insertSelective")
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=true, resultType=Integer.class)
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insertSelective(Feature record);
 
     /**

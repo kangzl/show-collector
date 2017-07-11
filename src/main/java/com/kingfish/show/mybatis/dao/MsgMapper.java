@@ -55,14 +55,16 @@ public interface MsgMapper {
      * @mbg.generated
      */
     @Insert({
-        "insert into msg (id, gmt_create, ",
-        "gmt_modify, show_id, ",
-        "user_id, user_ip, content)",
-        "values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, ",
-        "#{gmtModify,jdbcType=TIMESTAMP}, #{showId,jdbcType=BIGINT}, ",
-        "#{userId,jdbcType=BIGINT}, #{userIp,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR})"
+        "insert into msg (gmt_create, gmt_modify, ",
+        "show_id, user_id, user_ip, ",
+        "content, product_id, ",
+        "product_key_id)",
+        "values (#{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}, ",
+        "#{showId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{userIp,jdbcType=VARCHAR}, ",
+        "#{content,jdbcType=VARCHAR}, #{productId,jdbcType=BIGINT}, ",
+        "#{productKeyId,jdbcType=BIGINT})"
     })
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=true, resultType=Long.class)
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(Msg record);
 
     /**
@@ -72,7 +74,7 @@ public interface MsgMapper {
      * @mbg.generated
      */
     @InsertProvider(type=MsgSqlProvider.class, method="insertSelective")
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=true, resultType=Long.class)
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insertSelective(Msg record);
 
     /**
@@ -89,7 +91,9 @@ public interface MsgMapper {
         @Result(column="show_id", property="showId", jdbcType=JdbcType.BIGINT),
         @Result(column="user_id", property="userId", jdbcType=JdbcType.BIGINT),
         @Result(column="user_ip", property="userIp", jdbcType=JdbcType.VARCHAR),
-        @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR)
+        @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
+        @Result(column="product_id", property="productId", jdbcType=JdbcType.BIGINT),
+        @Result(column="product_key_id", property="productKeyId", jdbcType=JdbcType.BIGINT)
     })
     List<Msg> selectByExample(MsgExample example);
 
@@ -101,7 +105,8 @@ public interface MsgMapper {
      */
     @Select({
         "select",
-        "id, gmt_create, gmt_modify, show_id, user_id, user_ip, content",
+        "id, gmt_create, gmt_modify, show_id, user_id, user_ip, content, product_id, ",
+        "product_key_id",
         "from msg",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -112,7 +117,9 @@ public interface MsgMapper {
         @Result(column="show_id", property="showId", jdbcType=JdbcType.BIGINT),
         @Result(column="user_id", property="userId", jdbcType=JdbcType.BIGINT),
         @Result(column="user_ip", property="userIp", jdbcType=JdbcType.VARCHAR),
-        @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR)
+        @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
+        @Result(column="product_id", property="productId", jdbcType=JdbcType.BIGINT),
+        @Result(column="product_key_id", property="productKeyId", jdbcType=JdbcType.BIGINT)
     })
     Msg selectByPrimaryKey(Long id);
 
@@ -156,7 +163,9 @@ public interface MsgMapper {
           "show_id = #{showId,jdbcType=BIGINT},",
           "user_id = #{userId,jdbcType=BIGINT},",
           "user_ip = #{userIp,jdbcType=VARCHAR},",
-          "content = #{content,jdbcType=VARCHAR}",
+          "content = #{content,jdbcType=VARCHAR},",
+          "product_id = #{productId,jdbcType=BIGINT},",
+          "product_key_id = #{productKeyId,jdbcType=BIGINT}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(Msg record);

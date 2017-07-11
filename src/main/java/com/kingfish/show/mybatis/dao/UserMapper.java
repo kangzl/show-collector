@@ -2,10 +2,20 @@ package com.kingfish.show.mybatis.dao;
 
 import com.kingfish.show.mybatis.model.User;
 import com.kingfish.show.mybatis.model.UserExample;
-import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.type.JdbcType;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.DeleteProvider;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.UpdateProvider;
+import org.apache.ibatis.type.JdbcType;
 
 public interface UserMapper {
     /**
@@ -45,18 +55,18 @@ public interface UserMapper {
      * @mbg.generated
      */
     @Insert({
-        "insert into user (id, gmt_create, ",
-        "gmt_modify, username, ",
-        "password, sex, head_portrait_url, ",
+        "insert into user (gmt_create, gmt_modify, ",
+        "username, password, ",
+        "nick_name, sex, head_portrait_url, ",
         "signature, mobile_phone_number, ",
-        "email)",
-        "values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, ",
-        "#{gmtModify,jdbcType=TIMESTAMP}, #{username,jdbcType=VARCHAR}, ",
-        "#{password,jdbcType=VARCHAR}, #{sex,jdbcType=TINYINT}, #{headPortraitUrl,jdbcType=VARCHAR}, ",
+        "email, hide_nick_name)",
+        "values (#{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}, ",
+        "#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, ",
+        "#{nickName,jdbcType=VARCHAR}, #{sex,jdbcType=TINYINT}, #{headPortraitUrl,jdbcType=VARCHAR}, ",
         "#{signature,jdbcType=VARCHAR}, #{mobilePhoneNumber,jdbcType=VARCHAR}, ",
-        "#{email,jdbcType=VARCHAR})"
+        "#{email,jdbcType=VARCHAR}, #{hideNickName,jdbcType=BIT})"
     })
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=true, resultType=Long.class)
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(User record);
 
     /**
@@ -66,7 +76,7 @@ public interface UserMapper {
      * @mbg.generated
      */
     @InsertProvider(type=UserSqlProvider.class, method="insertSelective")
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=true, resultType=Long.class)
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insertSelective(User record);
 
     /**
@@ -82,11 +92,13 @@ public interface UserMapper {
         @Result(column="gmt_modify", property="gmtModify", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
         @Result(column="password", property="password", jdbcType=JdbcType.VARCHAR),
+        @Result(column="nick_name", property="nickName", jdbcType=JdbcType.VARCHAR),
         @Result(column="sex", property="sex", jdbcType=JdbcType.TINYINT),
         @Result(column="head_portrait_url", property="headPortraitUrl", jdbcType=JdbcType.VARCHAR),
         @Result(column="signature", property="signature", jdbcType=JdbcType.VARCHAR),
         @Result(column="mobile_phone_number", property="mobilePhoneNumber", jdbcType=JdbcType.VARCHAR),
-        @Result(column="email", property="email", jdbcType=JdbcType.VARCHAR)
+        @Result(column="email", property="email", jdbcType=JdbcType.VARCHAR),
+        @Result(column="hide_nick_name", property="hideNickName", jdbcType=JdbcType.BIT)
     })
     List<User> selectByExample(UserExample example);
 
@@ -98,8 +110,8 @@ public interface UserMapper {
      */
     @Select({
         "select",
-        "id, gmt_create, gmt_modify, username, password, sex, head_portrait_url, signature, ",
-        "mobile_phone_number, email",
+        "id, gmt_create, gmt_modify, username, password, nick_name, sex, head_portrait_url, ",
+        "signature, mobile_phone_number, email, hide_nick_name",
         "from user",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -109,11 +121,13 @@ public interface UserMapper {
         @Result(column="gmt_modify", property="gmtModify", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
         @Result(column="password", property="password", jdbcType=JdbcType.VARCHAR),
+        @Result(column="nick_name", property="nickName", jdbcType=JdbcType.VARCHAR),
         @Result(column="sex", property="sex", jdbcType=JdbcType.TINYINT),
         @Result(column="head_portrait_url", property="headPortraitUrl", jdbcType=JdbcType.VARCHAR),
         @Result(column="signature", property="signature", jdbcType=JdbcType.VARCHAR),
         @Result(column="mobile_phone_number", property="mobilePhoneNumber", jdbcType=JdbcType.VARCHAR),
-        @Result(column="email", property="email", jdbcType=JdbcType.VARCHAR)
+        @Result(column="email", property="email", jdbcType=JdbcType.VARCHAR),
+        @Result(column="hide_nick_name", property="hideNickName", jdbcType=JdbcType.BIT)
     })
     User selectByPrimaryKey(Long id);
 
@@ -156,11 +170,13 @@ public interface UserMapper {
           "gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},",
           "username = #{username,jdbcType=VARCHAR},",
           "password = #{password,jdbcType=VARCHAR},",
+          "nick_name = #{nickName,jdbcType=VARCHAR},",
           "sex = #{sex,jdbcType=TINYINT},",
           "head_portrait_url = #{headPortraitUrl,jdbcType=VARCHAR},",
           "signature = #{signature,jdbcType=VARCHAR},",
           "mobile_phone_number = #{mobilePhoneNumber,jdbcType=VARCHAR},",
-          "email = #{email,jdbcType=VARCHAR}",
+          "email = #{email,jdbcType=VARCHAR},",
+          "hide_nick_name = #{hideNickName,jdbcType=BIT}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(User record);

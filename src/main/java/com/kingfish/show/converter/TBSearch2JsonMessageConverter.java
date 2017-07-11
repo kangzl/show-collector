@@ -1,7 +1,7 @@
 package com.kingfish.show.converter;
 
 import com.alibaba.fastjson.JSONObject;
-import com.kingfish.show.bean.TBFeed;
+import com.kingfish.show.bean.TBSearch;
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
@@ -16,28 +16,30 @@ import java.nio.charset.Charset;
 /**
  * Created by kingfish on 2017/7/11.
  */
-public class TBFeed2JsonMessageConverter extends AbstractHttpMessageConverter<TBFeed> {
+public class TBSearch2JsonMessageConverter extends AbstractHttpMessageConverter<TBSearch> {
 
-    public TBFeed2JsonMessageConverter() {
+    public TBSearch2JsonMessageConverter() {
         super(MediaType.TEXT_HTML);
     }
 
     @Override
     protected boolean supports(Class<?> aClass) {
-        if (aClass == TBFeed.class)
+        if (aClass == TBSearch.class)
             return true;
         return false;
     }
 
     @Override
-    protected TBFeed readInternal(Class<? extends TBFeed> aClass, HttpInputMessage httpInputMessage) throws IOException, HttpMessageNotReadableException {
+    protected TBSearch readInternal(Class<? extends TBSearch> aClass, HttpInputMessage httpInputMessage) throws IOException, HttpMessageNotReadableException {
         String content = IOUtils.toString(httpInputMessage.getBody(), Charset.forName("gbk"));
         String jsonStr = content.substring(content.indexOf("(") + 1, content.lastIndexOf(")"));
         return JSONObject.parseObject(jsonStr, aClass);
     }
 
     @Override
-    protected void writeInternal(TBFeed feed, HttpOutputMessage httpOutputMessage) throws IOException, HttpMessageNotWritableException {
+    protected void writeInternal(TBSearch tbSearch, HttpOutputMessage httpOutputMessage) throws IOException, HttpMessageNotWritableException {
 
     }
+
+
 }

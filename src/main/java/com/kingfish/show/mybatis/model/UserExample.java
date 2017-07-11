@@ -515,6 +515,76 @@ public class UserExample {
             return (Criteria) this;
         }
 
+        public Criteria andNickNameIsNull() {
+            addCriterion("nick_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameIsNotNull() {
+            addCriterion("nick_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameEqualTo(String value) {
+            addCriterion("nick_name =", value, "nickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameNotEqualTo(String value) {
+            addCriterion("nick_name <>", value, "nickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameGreaterThan(String value) {
+            addCriterion("nick_name >", value, "nickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameGreaterThanOrEqualTo(String value) {
+            addCriterion("nick_name >=", value, "nickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameLessThan(String value) {
+            addCriterion("nick_name <", value, "nickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameLessThanOrEqualTo(String value) {
+            addCriterion("nick_name <=", value, "nickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameLike(String value) {
+            addCriterion("nick_name like", value, "nickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameNotLike(String value) {
+            addCriterion("nick_name not like", value, "nickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameIn(List<String> values) {
+            addCriterion("nick_name in", values, "nickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameNotIn(List<String> values) {
+            addCriterion("nick_name not in", values, "nickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameBetween(String value1, String value2) {
+            addCriterion("nick_name between", value1, value2, "nickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andNickNameNotBetween(String value1, String value2) {
+            addCriterion("nick_name not between", value1, value2, "nickName");
+            return (Criteria) this;
+        }
+
         public Criteria andSexIsNull() {
             addCriterion("sex is null");
             return (Criteria) this;
@@ -852,6 +922,66 @@ public class UserExample {
 
         public Criteria andEmailNotBetween(String value1, String value2) {
             addCriterion("email not between", value1, value2, "email");
+            return (Criteria) this;
+        }
+
+        public Criteria andHideNickNameIsNull() {
+            addCriterion("hide_nick_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHideNickNameIsNotNull() {
+            addCriterion("hide_nick_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHideNickNameEqualTo(Boolean value) {
+            addCriterion("hide_nick_name =", value, "hideNickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHideNickNameNotEqualTo(Boolean value) {
+            addCriterion("hide_nick_name <>", value, "hideNickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHideNickNameGreaterThan(Boolean value) {
+            addCriterion("hide_nick_name >", value, "hideNickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHideNickNameGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("hide_nick_name >=", value, "hideNickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHideNickNameLessThan(Boolean value) {
+            addCriterion("hide_nick_name <", value, "hideNickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHideNickNameLessThanOrEqualTo(Boolean value) {
+            addCriterion("hide_nick_name <=", value, "hideNickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHideNickNameIn(List<Boolean> values) {
+            addCriterion("hide_nick_name in", values, "hideNickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHideNickNameNotIn(List<Boolean> values) {
+            addCriterion("hide_nick_name not in", values, "hideNickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHideNickNameBetween(Boolean value1, Boolean value2) {
+            addCriterion("hide_nick_name between", value1, value2, "hideNickName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHideNickNameNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("hide_nick_name not between", value1, value2, "hideNickName");
             return (Criteria) this;
         }
     }

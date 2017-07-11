@@ -58,16 +58,16 @@ public class ProductSqlProvider {
             sql.VALUES("gmt_modify", "#{gmtModify,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUrl() != null) {
-            sql.VALUES("url", "#{url,jdbcType=VARCHAR}");
+        if (record.getDetailUrl() != null) {
+            sql.VALUES("detail_url", "#{detailUrl,jdbcType=VARCHAR}");
         }
         
         if (record.getIsP4p() != null) {
             sql.VALUES("is_p4p", "#{isP4p,jdbcType=BIT}");
         }
         
-        if (record.getUrlP4p() != null) {
-            sql.VALUES("url_p4p", "#{urlP4p,jdbcType=VARCHAR}");
+        if (record.getP4pUrl() != null) {
+            sql.VALUES("p4p_url", "#{p4pUrl,jdbcType=VARCHAR}");
         }
         
         if (record.getCateId() != null) {
@@ -86,6 +86,22 @@ public class ProductSqlProvider {
             sql.VALUES("l1_category", "#{l1Category,jdbcType=BIGINT}");
         }
         
+        if (record.getSource() != null) {
+            sql.VALUES("source", "#{source,jdbcType=TINYINT}");
+        }
+        
+        if (record.getPicUrl() != null) {
+            sql.VALUES("pic_url", "#{picUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getShopUrl() != null) {
+            sql.VALUES("shop_url", "#{shopUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getSimilarUrl() != null) {
+            sql.VALUES("similar_url", "#{similarUrl,jdbcType=VARCHAR}");
+        }
+        
         return sql.toString();
     }
 
@@ -98,19 +114,24 @@ public class ProductSqlProvider {
     public String selectByExample(ProductExample example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
-            sql.SELECT_DISTINCT("product_id");
+            sql.SELECT_DISTINCT("id");
         } else {
-            sql.SELECT("product_id");
+            sql.SELECT("id");
         }
+        sql.SELECT("product_id");
         sql.SELECT("gmt_create");
         sql.SELECT("gmt_modify");
-        sql.SELECT("url");
+        sql.SELECT("detail_url");
         sql.SELECT("is_p4p");
-        sql.SELECT("url_p4p");
+        sql.SELECT("p4p_url");
         sql.SELECT("cate_id");
         sql.SELECT("view_sales");
         sql.SELECT("sale_id");
         sql.SELECT("l1_category");
+        sql.SELECT("source");
+        sql.SELECT("pic_url");
+        sql.SELECT("shop_url");
+        sql.SELECT("similar_url");
         sql.FROM("product");
         applyWhere(sql, example, false);
         
@@ -134,6 +155,10 @@ public class ProductSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("product");
         
+        if (record.getId() != null) {
+            sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        }
+        
         if (record.getProductId() != null) {
             sql.SET("product_id = #{record.productId,jdbcType=BIGINT}");
         }
@@ -146,16 +171,16 @@ public class ProductSqlProvider {
             sql.SET("gmt_modify = #{record.gmtModify,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUrl() != null) {
-            sql.SET("url = #{record.url,jdbcType=VARCHAR}");
+        if (record.getDetailUrl() != null) {
+            sql.SET("detail_url = #{record.detailUrl,jdbcType=VARCHAR}");
         }
         
         if (record.getIsP4p() != null) {
             sql.SET("is_p4p = #{record.isP4p,jdbcType=BIT}");
         }
         
-        if (record.getUrlP4p() != null) {
-            sql.SET("url_p4p = #{record.urlP4p,jdbcType=VARCHAR}");
+        if (record.getP4pUrl() != null) {
+            sql.SET("p4p_url = #{record.p4pUrl,jdbcType=VARCHAR}");
         }
         
         if (record.getCateId() != null) {
@@ -174,6 +199,22 @@ public class ProductSqlProvider {
             sql.SET("l1_category = #{record.l1Category,jdbcType=BIGINT}");
         }
         
+        if (record.getSource() != null) {
+            sql.SET("source = #{record.source,jdbcType=TINYINT}");
+        }
+        
+        if (record.getPicUrl() != null) {
+            sql.SET("pic_url = #{record.picUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getShopUrl() != null) {
+            sql.SET("shop_url = #{record.shopUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getSimilarUrl() != null) {
+            sql.SET("similar_url = #{record.similarUrl,jdbcType=VARCHAR}");
+        }
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -188,19 +229,95 @@ public class ProductSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("product");
         
+        sql.SET("id = #{record.id,jdbcType=BIGINT}");
         sql.SET("product_id = #{record.productId,jdbcType=BIGINT}");
         sql.SET("gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP}");
         sql.SET("gmt_modify = #{record.gmtModify,jdbcType=TIMESTAMP}");
-        sql.SET("url = #{record.url,jdbcType=VARCHAR}");
+        sql.SET("detail_url = #{record.detailUrl,jdbcType=VARCHAR}");
         sql.SET("is_p4p = #{record.isP4p,jdbcType=BIT}");
-        sql.SET("url_p4p = #{record.urlP4p,jdbcType=VARCHAR}");
+        sql.SET("p4p_url = #{record.p4pUrl,jdbcType=VARCHAR}");
         sql.SET("cate_id = #{record.cateId,jdbcType=BIGINT}");
         sql.SET("view_sales = #{record.viewSales,jdbcType=VARCHAR}");
         sql.SET("sale_id = #{record.saleId,jdbcType=BIGINT}");
         sql.SET("l1_category = #{record.l1Category,jdbcType=BIGINT}");
+        sql.SET("source = #{record.source,jdbcType=TINYINT}");
+        sql.SET("pic_url = #{record.picUrl,jdbcType=VARCHAR}");
+        sql.SET("shop_url = #{record.shopUrl,jdbcType=VARCHAR}");
+        sql.SET("similar_url = #{record.similarUrl,jdbcType=VARCHAR}");
         
         ProductExample example = (ProductExample) parameter.get("example");
         applyWhere(sql, example, true);
+        return sql.toString();
+    }
+
+    /**
+     * This method was generated by MyBatis Generator.
+     * This method corresponds to the database table product
+     *
+     * @mbg.generated
+     */
+    public String updateByPrimaryKeySelective(Product record) {
+        SQL sql = new SQL();
+        sql.UPDATE("product");
+        
+        if (record.getProductId() != null) {
+            sql.SET("product_id = #{productId,jdbcType=BIGINT}");
+        }
+        
+        if (record.getGmtCreate() != null) {
+            sql.SET("gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getGmtModify() != null) {
+            sql.SET("gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getDetailUrl() != null) {
+            sql.SET("detail_url = #{detailUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getIsP4p() != null) {
+            sql.SET("is_p4p = #{isP4p,jdbcType=BIT}");
+        }
+        
+        if (record.getP4pUrl() != null) {
+            sql.SET("p4p_url = #{p4pUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getCateId() != null) {
+            sql.SET("cate_id = #{cateId,jdbcType=BIGINT}");
+        }
+        
+        if (record.getViewSales() != null) {
+            sql.SET("view_sales = #{viewSales,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getSaleId() != null) {
+            sql.SET("sale_id = #{saleId,jdbcType=BIGINT}");
+        }
+        
+        if (record.getL1Category() != null) {
+            sql.SET("l1_category = #{l1Category,jdbcType=BIGINT}");
+        }
+        
+        if (record.getSource() != null) {
+            sql.SET("source = #{source,jdbcType=TINYINT}");
+        }
+        
+        if (record.getPicUrl() != null) {
+            sql.SET("pic_url = #{picUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getShopUrl() != null) {
+            sql.SET("shop_url = #{shopUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getSimilarUrl() != null) {
+            sql.SET("similar_url = #{similarUrl,jdbcType=VARCHAR}");
+        }
+        
+        sql.WHERE("id = #{id,jdbcType=BIGINT}");
+        
         return sql.toString();
     }
 
