@@ -79,6 +79,7 @@ public class Collector {
                         }
                     }
 
+                    product.setTitle(auction.getRaw_title());
                     product.setCateId(Long.valueOf(auction.getCategory()));
                     product.setL1Category(Long.valueOf(catLevelOne));
                     product.setSaleId(Long.valueOf(auction.getUser_id()));
