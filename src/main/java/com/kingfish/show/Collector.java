@@ -78,14 +78,16 @@ public class Collector {
                             DateTime dateTimeNow = new DateTime(new Date());
                             int days = Days.daysBetween(dateTimeInDb, dateTimeNow).getDays();
                             if (days < 7) {
-                                logger.info("product:{} not yet due!" + product.getProductId());
+                                logger.info("product:{} not yet due!", product.getProductId());
                                 continue;
                             }
                         }
 
                         product.setTitle(auction.getRaw_title());
                         product.setCateId(Long.valueOf(auction.getCategory()));
-                        product.setL1Category(Long.valueOf(catLevelOne));
+                        if (catLevelOne != null) {
+                            product.setL1Category(Long.valueOf(catLevelOne));
+                        }
                         product.setSaleId(Long.valueOf(auction.getUser_id()));
                         boolean isTmall = auction.getShopcard().isIsTmall();
                         byte source = (byte) (isTmall ? 2 : 1);
@@ -133,8 +135,8 @@ public class Collector {
     }
 
     private List<Shows> extractShow(TBFeed feed) throws ParseException {
-        if (feed == null || feed.getComments() == null || feed.getTotal() == 0) return null;
         List<Shows> result = Lists.newArrayList();
+        if (feed == null || feed.getComments() == null || feed.getTotal() == 0) return result;
         List<TBFeed.CommentsBean> comments = feed.getComments();
         for (TBFeed.CommentsBean comment : comments) {
             Shows show = new Shows();
