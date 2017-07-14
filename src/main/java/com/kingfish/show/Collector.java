@@ -56,64 +56,75 @@ public class Collector {
                 long startTime = System.currentTimeMillis();
                 if (spiderTrack.getCategoryId() == null) continue;
                 String urlSearch = String.format(URL_SEARCH, spiderTrack.getCategoryId());
+                if (!StringUtils.isEmpty(spiderTrack.getKeyword())) {
+                    urlSearch += "&q=" + spiderTrack.getKeyword();
+                }
                 TBSearch tbSearch = restTemplate.getForEntity(urlSearch, TBSearch.class).getBody();
                 if (tbSearch == null) continue;
                 String catLevelOne = tbSearch.getMainInfo().getSrpGlobal().getCatLevelOne();
                 List<TBSearch.ModsBean.ItemlistBean.DataBeanXX.AuctionsBean> auctions = tbSearch.getMods().getItemlist().getData().getAuctions();
                 for (TBSearch.ModsBean.ItemlistBean.DataBeanXX.AuctionsBean auction : auctions) {
-                    Product product = new Product();
-                    product.setProductId(Long.valueOf(auction.getNid()));
-
-                    ProductExample productExample = new ProductExample();
-                    productExample.or().andProductIdEqualTo(product.getProductId());
-                    List<Product> products = productMapper.selectByExample(productExample);
-
-                    if (!CollectionUtils.isEmpty(products)) {
-                        Product productInDb = products.get(0);
-                        DateTime dateTimeInDb = new DateTime(productInDb.getGmtCreate());
-                        DateTime dateTimeNow = new DateTime(new Date());
-                        int days = Days.daysBetween(dateTimeInDb, dateTimeNow).getDays();
-                        if (days < 7) {
-                            logger.info("product:{} not yet due!" + product.getProductId());
-                            continue;
-                        }
-                    }
-
-                    product.setTitle(auction.getRaw_title());
-                    product.setCateId(Long.valueOf(auction.getCategory()));
-                    product.setL1Category(Long.valueOf(catLevelOne));
-                    product.setSaleId(Long.valueOf(auction.getUser_id()));
-                    boolean isTmall = auction.getShopcard().isIsTmall();
-                    byte source = (byte) (isTmall ? 2 : 1);
-                    product.setSource(source);
-                    product.setViewSales(auction.getView_sales());
-                    product.setDetailUrl(auction.getDetail_url());
-                    product.setPicUrl(auction.getPic_url());
-                    product.setShopUrl(auction.getShopLink());
-                    product.setSimilarUrl(auction.getI2iTags().getSimilar().getUrl());
-                    String urlFeed = String.format(URL_FEED, auction.getNid());
-                    TBFeed feed = restTemplate.getForEntity(urlFeed, TBFeed.class).getBody();
-                    if (feed == null) continue;
-                    List<Shows> shows = null;
                     try {
-                        shows = extractShow(feed);
-                        shows.forEach(show -> show.setProductId(product.getProductId()));
+                        Product product = new Product();
+                        product.setProductId(Long.valueOf(auction.getNid()));
+
+                        ProductExample productExample = new ProductExample();
+                        productExample.or().andProductIdEqualTo(product.getProductId());
+                        List<Product> products = productMapper.selectByExample(productExample);
+
+                        if (!CollectionUtils.isEmpty(products)) {
+                            Product productInDb = products.get(0);
+                            DateTime dateTimeInDb = new DateTime(productInDb.getGmtCreate());
+                            DateTime dateTimeNow = new DateTime(new Date());
+                            int days = Days.daysBetween(dateTimeInDb, dateTimeNow).getDays();
+                            if (days < 7) {
+                                logger.info("product:{} not yet due!" + product.getProductId());
+                                continue;
+                            }
+                        }
+
+                        product.setTitle(auction.getRaw_title());
+                        product.setCateId(Long.valueOf(auction.getCategory()));
+                        product.setL1Category(Long.valueOf(catLevelOne));
+                        product.setSaleId(Long.valueOf(auction.getUser_id()));
+                        boolean isTmall = auction.getShopcard().isIsTmall();
+                        byte source = (byte) (isTmall ? 2 : 1);
+                        product.setSource(source);
+                        product.setViewSales(auction.getView_sales());
+                        product.setDetailUrl(auction.getDetail_url());
+                        product.setPicUrl(auction.getPic_url());
+                        product.setShopUrl(auction.getShopLink());
+                        product.setSimilarUrl(auction.getI2iTags().getSimilar().getUrl());
+                        String urlFeed = String.format(URL_FEED, auction.getNid());
+                        TBFeed feed = restTemplate.getForEntity(urlFeed, TBFeed.class).getBody();
+                        if (feed == null) continue;
+                        List<Shows> shows = null;
+                        try {
+                            shows = extractShow(feed);
+                            shows.forEach(show -> show.setProductId(product.getProductId()));
+                        } catch (Exception e) {
+                            logger.error("ERROR", e);
+                        }
+
+                        if (CollectionUtils.isEmpty(shows))
+                            continue;
+
+                        ProductExample productExample4delete = new ProductExample();
+                        ProductExample.Criteria criteria = productExample4delete.createCriteria();
+                        criteria.andProductIdEqualTo(product.getProductId());
+                        productMapper.deleteByExample(productExample4delete);
+
+                        productMapper.insert(product);
+
+                        ShowsExample showExample = new ShowsExample();
+                        ShowsExample.Criteria criteriaShow = showExample.createCriteria();
+                        criteriaShow.andProductIdEqualTo(product.getProductId());
+                        showsMapper.deleteByExample(showExample);
+
+                        shows.forEach(show -> showsMapper.insert(show));
                     } catch (Exception e) {
-                        logger.error("ERROR", e);
+                        logger.error("An error occurred!", e);
                     }
-                    ProductExample productExample4delete = new ProductExample();
-                    ProductExample.Criteria criteria = productExample4delete.createCriteria();
-                    criteria.andProductIdEqualTo(product.getProductId());
-                    productMapper.deleteByExample(productExample4delete);
-
-                    productMapper.insert(product);
-
-                    ShowsExample showExample = new ShowsExample();
-                    ShowsExample.Criteria criteriaShow = showExample.createCriteria();
-                    criteriaShow.andProductIdEqualTo(product.getProductId());
-                    showsMapper.deleteByExample(showExample);
-
-                    shows.forEach(show -> showsMapper.insert(show));
                 }
                 logger.info("{} cost:{}", spiderTrack.toString(), System.currentTimeMillis() - startTime);
             }
