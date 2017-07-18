@@ -11,7 +11,7 @@
  Target Server Version : 50718
  File Encoding         : utf-8
 
- Date: 07/11/2017 23:48:17 PM
+ Date: 07/19/2017 03:13:23 AM
 */
 
 SET NAMES utf8mb4;
@@ -25,7 +25,7 @@ CREATE TABLE `feature` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `content` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `msg`
@@ -64,9 +64,11 @@ CREATE TABLE `product` (
   `pic_url` varchar(1024) DEFAULT NULL COMMENT '图片url',
   `shop_url` varchar(1024) DEFAULT NULL COMMENT '店铺url',
   `similar_url` varchar(1024) DEFAULT NULL COMMENT '相似商品的search链接',
+  `title` varchar(1024) DEFAULT NULL COMMENT '标题',
+  `keyword` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_product_id` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=174 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `shows`
@@ -86,8 +88,8 @@ CREATE TABLE `shows` (
   `outside_user_head_pic` varchar(256) DEFAULT NULL,
   `outside_user_nickname` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `idx_product_id` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2336 DEFAULT CHARSET=utf8;
+  KEY `idx_union` (`product_id`,`show_time`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=3347 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `spider_track`
@@ -102,7 +104,7 @@ CREATE TABLE `spider_track` (
   `last_time` timestamp NULL DEFAULT NULL,
   `num` bigint(20) DEFAULT NULL COMMENT '抓取的数量',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `user`
